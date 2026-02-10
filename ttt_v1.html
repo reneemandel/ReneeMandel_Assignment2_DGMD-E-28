@@ -1,0 +1,96 @@
+<!-- Assignment 2, Renee Mandel -->
+<!-- link -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Assignment 2</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: 'Courier New', monospace;
+                background-color: #f0e6ff;
+            }
+
+            .box {
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+                border: 2px solid black;
+                margin: 5px;
+                font-size: 60px;
+                line-height: 100px;
+                text-align: center;
+                vertical-align: top;
+                transition: background-color 0.2s ease;
+            }
+            .box:hover {
+                background-color: #e6ccff;
+            }
+
+            h1 {
+                margin-top: 50px;
+                color: #6a0dad;
+            }
+
+            .turn {
+                font-size: 24px;
+                margin: 20px;
+                font-weight: bold;
+                color: #8b2be2;
+            }   
+
+            .start_button {
+                margin: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #6a0dad;
+                color: #f0e6ff;
+                border: none;
+                border-radius: 5px;
+                font-family: inherit;
+                transition: background-color 0.2s ease;
+                font-weight: bold;
+            }
+
+            .start_button:hover {
+                background-color: #8b2be2;
+            }
+
+            footer a {
+                color: #8b2be2;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Tic Tac Toe!</h1>
+        <div class="turn">X's Turn</div>
+        <div>
+            <div>
+                <div class="box">X</div>
+                <div class="box"></div>
+                <div class="box"></div>
+            </div>
+
+            <div>
+                <div class="box"></div>
+                <div class="box">X</div>
+                <div class="box"></div>
+            </div>
+
+            <div>
+                <div class="box"></div>
+                <div class="box"></div>
+                <div class="box">O</div>
+            </div>
+        </div>
+        <button class="start_button">Start New Game</button>
+        <footer>
+            <a href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank">Learn about Tic Tac Toe</a>
+            <p>Harvard DGMD E-28 | Assignment 2</p>
+        </footer>
+    </body>
+</html>
