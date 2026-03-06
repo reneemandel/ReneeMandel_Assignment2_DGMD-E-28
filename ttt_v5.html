@@ -126,7 +126,7 @@
 
                 //builds an array of strings for each possible win
                 //each string puts 3 strings together so if it is XXX or OOO that player wins
-                let wins = [
+                let winConditions = [
                     moves[0] + moves[1] + moves[2], // row 1
                     moves[3] + moves[4] + moves[5], // row 2
                     moves[6] + moves[7] + moves[8], // row 3
@@ -137,8 +137,8 @@
                     moves[2] + moves[4] + moves[6]  // diagonal 2
                 ];
 
-                //.includes() is used to check if a value is anywhere in the array wins (slide 142)
-                if (wins.includes("XXX") || wins.includes("OOO")) {
+                //.includes() is used to check if a value is anywhere in the array winConditions (slide 142)
+                if (winConditions.includes("XXX") || winConditions.includes("OOO")) {
 
                     // displays winner and stops the game
                     document.getElementById("turn").innerHTML = "Player " + currentTurn + " Wins!";
