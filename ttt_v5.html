@@ -1,0 +1,185 @@
+<!-- Assignment 2d, Renee Mandel -->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tic Tac Toe Part 5</title>
+        <style>
+            body {
+                text-align: center;
+                font-family: 'Courier New', monospace;
+                background-color: #f0e6ff;
+            }
+
+            #board3x3 {
+                width: 350px;      
+                margin: 0 auto;    
+                line-height: 0;   
+            }
+
+            .square {
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+                border: 2px solid black;
+                margin: 5px;
+                font-size: 60px;
+                line-height: 100px;
+                text-align: center;
+                vertical-align: top;
+                cursor: pointer;
+            }
+
+            .square:hover {
+                background-color: #e6ccff;
+            }
+
+            h1 {
+                margin-top: 50px;
+                color: #6a0dad;
+            }
+
+            #turn {
+                font-size: 24px;
+                margin: 20px auto;
+                font-weight: bold;
+                color: #8b2be2;
+                border: 2px solid #8b2be2; 
+                padding: 10px 20px;
+                width: fit-content;
+                border-radius: 0;
+                background-color: transparent; 
+            }
+
+            .start_button {
+                margin: 20px;
+                padding: 10px 20px;
+                font-size: 16px;
+                background-color: #6a0dad;
+                color: #f0e6ff;
+                border-radius: 5px;
+                font-family: inherit;
+                transition: background-color 0.2s ease;
+                font-weight: bold;
+                border: 2px solid #8b2be2;
+                cursor: pointer;
+            }
+
+            footer a {
+                color: #8b2be2;
+                font-weight: bold;
+            }
+        </style>
+
+        <script>
+            //global variables (slide 109)
+            //makes sure that all functions can access these. 
+
+            let currentTurn;        // tracks whose turn it is: "X" or "O"
+            let gameOver = false;   // stops the game after a win or tie
+
+
+            //window.onload makes sure whole page (html and css) is loaded!
+            window.onload = function() {
+
+                // starts new game
+                initGame();
+                // assigns the start button's click event handler (slide 119)
+                document.querySelector(".start_button").onclick = initGame;
+            }
+            
+            function initGame() { //resets game!
+
+                // makes sure you can click when game is restarted
+                gameOver = false;
+                
+                //random decimal for who starts game (Slide 134)
+                currentTurn = Math.random() < 0.5 ? "X" : "O";
+                document.getElementById("turn").innerHTML = currentTurn + "'s Turn";
+
+                const squares = document.querySelectorAll(".square");
+                squares.forEach(sq => {
+                    sq.innerHTML = "";              // clear whatever was in the square
+                    sq.onclick = squareClickHandler; // re-attach the click handler
+                });
+            }
+            
+            //function runs when square is clicked
+            function squareClickHandler() {
+                
+                //if clause (slide 90) that stops function if game is over or if the quare already has an X or 0
+                //return exits function
+                if (gameOver || this.innerHTML !== "") {  //this refers to the specific square
+                    return;
+                }
+
+                // places current players mark in correct square
+                this.innerHTML = currentTurn;
+
+                // makes an array called moves using the map method (slide 152)
+                // represents empty squares with a hyphen (-)
+                let squaresArray = Array.from(document.querySelectorAll(".square"));
+                let moves = squaresArray.map(function(sq) {
+                    return sq.innerHTML === "" ? "-" : sq.innerHTML;
+                });
+
+                //builds an array of strings for each possible win
+                //each string puts 3 strings together so if it is XXX or OOO that player wins
+                let wins = [
+                    moves[0] + moves[1] + moves[2], // row 1
+                    moves[3] + moves[4] + moves[5], // row 2
+                    moves[6] + moves[7] + moves[8], // row 3
+                    moves[0] + moves[3] + moves[6], // col 1
+                    moves[1] + moves[4] + moves[7], // col 2
+                    moves[2] + moves[5] + moves[8], // col 3
+                    moves[0] + moves[4] + moves[8], // diagonal 1
+                    moves[2] + moves[4] + moves[6]  // diagonal 2
+                ];
+
+                //.includes() is used to check if a value is anywhere in the array wins (slide 142)
+                if (wins.includes("XXX") || wins.includes("OOO")) {
+
+                    // displays winner and stops the game
+                    document.getElementById("turn").innerHTML = "Player " + currentTurn + " Wins!";
+                    gameOver = true;  // this stops any more clicks on the squares from working
+
+                } 
+                // check if any empty squares remain (stalemate)
+                else if (!moves.includes("-")) {
+                    document.getElementById("turn").innerHTML = "Stalemate! No winner.";
+                    gameOver = true;
+                }
+                // if no win or stalemate, swap turns (Slide 93)
+                else {
+                    currentTurn = (currentTurn === "X") ? "O" : "X";
+                    document.getElementById("turn").innerHTML = currentTurn + "'s Turn";
+                }
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <h1>Tic Tac Toe!</h1>
+    
+        <div id="turn"></div>
+
+        <div id="board3x3">
+            <script>
+                const NUM_SQUARES = 9;
+                for (let i=0; i<NUM_SQUARES; i++) {
+                    document.write("<div class='square' id='sq" + i + "'></div>");
+                }
+            </script>
+        </div>
+
+        <button class="start_button">Start Game</button>
+
+        <footer>
+            <br>
+            <a href="https://en.wikipedia.org/wiki/Tic-tac-toe" target="_blank">Learn about Tic Tac Toe</a>
+            <p>Harvard DGMD E-28 | Assignment 2d</p>
+        </footer>
+    </body>
+</html>
